@@ -1,0 +1,35 @@
+class Solution {
+            String words="";
+        String[] Less_Than_20={"","One","Two","Three","Four","Five","Six","Seven","Eight","Nine","Ten","Eleven","Twelve","Thirteen","Fourteen","Fifteen","Sixteen","Seventeen","Eighteen","Nineteen"};
+        String[] Tens={"","Ten","Twenty","Thirty","Forty","Fifty","Sixty","Seventy","Eighty","Ninety"};
+         String[] Hunderad={"Hundred"};
+        String[] Thousand={"","Thousand","Million","Billion","Trillion"};
+    public String numberToWords(int num) {
+        if(num==0) return "Zero";
+        int i=0;
+        while(num!=0){
+             if (num % 1000 != 0)
+            words=helper(num%1000)+Thousand[i]+" "+words;
+            num/=1000;
+            i++;
+        }
+        return words.trim();
+    }
+        //123 one Hunderad
+        //23 =twenty 
+        //three >> one Hunderad twenty three
+        //eg : 47 less than 100 Tens[47/10]=4=fourty seven
+        //5340 ==three hunderad fourty +"" five thousand three hundead 
+    
+    private String helper(int num){
+        if(num==0) {return "";
+        } else if(num<20){
+            return Less_Than_20[num]+" ";
+        } else if(num<100) {
+            return Tens[num/10]+" "+helper(num%10);
+        } else {
+            return Less_Than_20[num/100]+" Hundred "+helper(num%100);
+        }
+        
+    }
+}
