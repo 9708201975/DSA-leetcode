@@ -1,0 +1,52 @@
+class Solution {
+    public String reverseWords(String s) {
+        //convert to char array
+        char[]ch=s.toCharArray();
+        //reverse the string
+        reverse(ch,0,ch.length-1);
+        // reverse the word in the string
+        reverseWords(ch);
+        //clean the space
+        return cleanSpace(ch);
+    }
+   private void reverse(char[] ch,int left,int right){
+        while(left<right){
+            char tmp=ch[left];
+            ch[left]=ch[right];
+            ch[right]=tmp;
+            left++;
+            right--;
+        }
+   }
+ private void reverseWords(char[] ch){
+        int left=0;
+        int right=0;
+        while(right<ch.length){
+            while(left<ch.length && ch[left]==' ') left++;
+            right=left;
+            while(right<ch.length && ch[right]!=' ') right++;
+                reverse(ch,left,right-1);
+                left=right; 
+        }
+    }
+   private String cleanSpace(char[] ch){
+        int left=0;
+        int right=0;
+        while(right<ch.length){
+            while(right<ch.length && ch[right]==' ') right++;
+            while(right<ch.length&& ch[right]!=' '){
+                ch[left]=ch[right];
+                left++;
+                right++;
+            }
+             while(right<ch.length && ch[right]==' ') right++;
+             if(right<ch.length){
+                ch[left]=' ';
+                left++;
+             }
+            
+        }
+        return new String(ch).substring(0,left);
+    }
+
+    }
